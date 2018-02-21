@@ -76,6 +76,8 @@ def colormap(point):
         
 
 def petify(nick, color, msg):
+    if len(nick) > 10:
+        nick = nick[:7] + "..."
     color = colormap(color)
     if (len(msg) + len(nick) + 4) > 40:
         msglines = wrap(msg, 36-len(nick))
@@ -140,6 +142,9 @@ async def check_input_buffers():
             channel = dclient.get_channel(CHANNELIDS[0])
             if channel is not None:
                 await dclient.send_message(channel, nextline)
+            else:
+                print("DEBUG: Unable to turn channel id into a destination channel. The following message was discarded:")
+                print(nextline)
         await asyncio.sleep(1)
             
 def ascpet(char):
