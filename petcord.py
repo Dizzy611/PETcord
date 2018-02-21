@@ -232,7 +232,7 @@ def doclient(mysocket, addr, num):
             except socket.error:
                 break
             ibuf = ibuf + inchr
-            if (inchr == b'\r') or (len(ibuf) >= 40):
+            if inchr == b'\r':
                 if dready == True:
                     dbuf.append("<C64#" + cnum + "> " + ibuf.decode("ascii","ignore"))
                 ibuf = b""
