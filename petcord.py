@@ -139,9 +139,10 @@ async def check_input_buffers():
     while not dclient.is_closed:
         if len(dbuf) > 0:
             nextline = dbuf.popleft()
-            channel = dclient.get_channel(CHANNELIDS[0])
-            if channel is not None:
-                await dclient.send_message(channel, nextline)
+            for chid in CHANNELIDS:
+                channel = dclient.get_channel(chid)
+                if channel is not None:
+                    await dclient.send_message(channel, nextline)
         await asyncio.sleep(1)
             
 def ascpet(char):
