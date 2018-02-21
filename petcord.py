@@ -83,13 +83,13 @@ def petify(nick, color, msg):
         msglines = wrap(msg, 36-len(nick))
     else:
         msglines = [msg]
-    nick = nick.encode("ascii")
+    nick = nick.encode("ascii","ignore")
     pnick = b""
     out = []
     for char in nick:
         pnick = pnick + ascpet(char)
     for idx, line in enumerate(msglines):
-        line = line.encode("ascii")
+        line = line.encode("ascii","ignore")
         pmsg = b""
         for char in line:
             pmsg = pmsg + ascpet(char)
