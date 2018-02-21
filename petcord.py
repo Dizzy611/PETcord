@@ -126,11 +126,16 @@ async def on_message(message):
         return
     msg = message.content
     petmsg = petify(nick, color, msg)
-    for c in tclients:
+    for idx,c in enumerate(tclients):
         for line in petmsg:
-            c.send(line)
-            
-
+            try: 
+                c.send(line)
+            except OSError:
+                print("A client has disconnected.")
+                del tclients[idx]
+                return
+                
+                
 async def check_input_buffers():
     await dclient.wait_until_ready()
     await asyncio.sleep(1)
